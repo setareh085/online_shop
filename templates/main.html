@@ -1,0 +1,11 @@
+{% block header %}
+    <title>فروشگاه اینترنتی دلارام</title>
+{% endblock %}
+
+{% block body %}
+
+    {% for p in products %}
+        {{ p.name }}
+    {% endfor %}
+    
+{% endblock %}
