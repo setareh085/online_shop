@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from blueprint.general import app as general
 from blueprint.admin import app as admin
@@ -25,6 +25,12 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter(User.id == user_id).first()
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    flash("برای دسترسی به این صفحه وارد حساب کاربریتان شوید.")
+    return redirect(url_for("user.login"))
+
 
 with app.app_context():
     extentions.db.create_all()
